@@ -10,9 +10,10 @@
 <body>
 <main>
    <h1>Ear Trainer</h1>
-    <p>Let's train our ears, shall we?</p>
+    <input type="button" onclick="generateTest()" value="Test Me!">
+    <p id="#questionIndex"></p>
+    <input type="button" onclick="replayInterval()" value="Hear It Again">
 
-    <input type="button" onclick="playInterval( 'third0' );">
 
     <audio style="display: none;" id="third0" preload src="intervals/major_third/third0.wav"></audio>
     <audio style="display: none;" id="third1" preload src="intervals/major_third/third1.wav"></audio>
