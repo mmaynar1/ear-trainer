@@ -9,24 +9,27 @@
 </head>
 <body>
 <main>
-   <h1>Ear Trainer</h1>
-    <input type="button" onclick="generateTest()" value="Start Test">
-    <div id="questionArea" style="display: none;">
-        <p id="questionIndex"></p>
-        <p id="correctAnswer"></p>
-        <input type="button" onclick="replayInterval()" value="Replay Interval">
-        <select id="answer">
-            <option value="0">Major Third</option>
-            <option value="1">Perfect Fourth</option>
-            <option value="2">Perfect Fifth</option>
-            <option value="3">Octave</option>
-        </select>
-        <input type="button" onclick="confirmAnswer()" value="Confirm Answer">
+    <br>
+    <div id="container">
+       <h1>Ear Trainer</h1>
+        <button class="button" onclick="generateTest()">Start Test</button>
+        <div id="questionArea" style="display: none;">
+            <p id="questionIndex"></p>
+            <p id="correctAnswer"></p>
+            <button class="button" onclick="replayInterval()">Replay Interval</button>
+            <br>
+            <select id="answer">
+                <option value="0">Major Third</option>
+                <option value="1">Perfect Fourth</option>
+                <option value="2">Perfect Fifth</option>
+                <option value="3">Octave</option>
+            </select>
+            <button class="button" onclick="confirmAnswer()">Confirm Answer</button>
+        </div>
+        <br>
+        <br>
+        <div id="testResults"></div>
     </div>
-    <br>
-    <br>
-    <div id="testResults"></div>
-
     <audio style="display: none;" id="third0" preload src="intervals/major_third/third0.wav"></audio>
     <audio style="display: none;" id="third1" preload src="intervals/major_third/third1.wav"></audio>
     <audio style="display: none;" id="third2" preload src="intervals/major_third/third2.wav"></audio>
