@@ -63,7 +63,18 @@ let confirmAnswer = function()
         document.getElementById("questionArea").style.display = "none";
         let testResults = document.getElementById("testResults");
         testResults.style.display = "";
-        testResults.innerHTML = "You got " + correctAnswers + " out of " + questionCount + " correct in " + completionSeconds + " seconds.";
+
+        let score = localStorage.getItem('score');
+        let time = localStorage.getItem('time');
+        let highScoreMessage = "You didn't beat your high score. ";
+        if( correctAnswers > score || correctAnswers >= score && completionSeconds < time )
+        {
+            localStorage.setItem('score', correctAnswers);
+            localStorage.setItem('time', completionSeconds);
+            highScoreMessage = "New high score! ";
+        }
+
+        testResults.innerHTML = highScoreMessage + "You got " + correctAnswers + " out of " + questionCount + " correct in " + completionSeconds + " seconds.";
 
     }
 }
