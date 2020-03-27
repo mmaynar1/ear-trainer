@@ -28,7 +28,7 @@ let generateTest = function()
         answers[question] = interval;
     }
 
-    beginTime = new Date().getTime();
+    beginTime = Date.now();
     nextQuestion();
 }
 
@@ -45,10 +45,11 @@ let confirmAnswer = function()
     if( interval === answers[questionIndex])
     {
         correctAnswers++;
+        document.getElementById("correctAnswer").innerHTML = "";
     }
     else
     {
-        document.getElementById("correctAnswer").innerHTML = answers[questionIndex];
+        document.getElementById("correctAnswer").innerHTML = "Wrong, the correct answer was: " + answers[questionIndex];
     }
     questionIndex++;
     if( questionIndex < questionCount )
@@ -57,11 +58,12 @@ let confirmAnswer = function()
     }
     else
     {
-        let completionSeconds = (( new Date().getTime() - beginTime ) * 1000).toFixed(2);
+        let delta = Date.now() - beginTime; // milliseconds elapsed since start
+        let completionSeconds = Math.floor(delta / 1000);
         document.getElementById("questionArea").style.display = "none";
         let testResults = document.getElementById("testResults");
         testResults.style.display = "";
-        testResults.innerHTML = "You got " + correctAnswers + " out of " + questionCount + " correct in " + completionSeconds;
+        testResults.innerHTML = "You got " + correctAnswers + " out of " + questionCount + " correct in " + completionSeconds + " seconds.";
 
     }
 }
