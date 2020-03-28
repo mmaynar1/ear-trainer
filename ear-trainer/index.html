@@ -12,10 +12,9 @@
     <br>
     <div id="container">
        <h1>Ear Trainer</h1>
-        <button class="button" onclick="generateTest()">Start Test</button>
+        <button id="startButton" class="button" onclick="generateTest()">Start Test</button>
         <div id="questionArea" style="display: none;">
-            <p id="questionIndex"></p>
-            <p id="correctAnswer"></p>
+            <h3 id="questionIndex"></h3>
             <button class="button" onclick="replayInterval()">Replay Interval</button>
             <br>
             <select id="answer">
@@ -26,6 +25,7 @@
             </select>
             <button class="button" onclick="confirmAnswer()">Confirm Answer</button>
         </div>
+        <p id="correctAnswer">&nbsp</p>
         <br>
         <br>
         <div id="testResults"></div>

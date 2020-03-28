@@ -12,10 +12,10 @@ let playInterval = function( id )
 
 let generateTest = function()
 {
-    document.getElementById("questionArea").style.display = "";
-    let testResults = document.getElementById("testResults");
-    testResults.style.display = "";
-    testResults.innerHTML = "";
+    show("questionArea");
+    hide("startButton");
+    show("correctAnswer", "&nbsp");
+    show("testResults", "");
     questions = [];
     answers = [];
     questionIndex = 0;
@@ -34,23 +34,13 @@ let generateTest = function()
 
 let nextQuestion = function()
 {
-    document.getElementById("questionIndex").innerHTML = "Question " + ( questionIndex + 1 ) + " of " + questionCount;
+    show("questionIndex", "Question " + ( questionIndex + 1 ) + " of " + questionCount );
     playInterval( questions[questionIndex] );
 }
 
 let confirmAnswer = function()
 {
-    let id = document.getElementById("answer").value;
-    let interval = getInterval( id );
-    if( interval === answers[questionIndex])
-    {
-        correctAnswers++;
-        document.getElementById("correctAnswer").innerHTML = "";
-    }
-    else
-    {
-        document.getElementById("correctAnswer").innerHTML = "Wrong, the correct answer was: " + answers[questionIndex];
-    }
+    evaluateAnswer();
     questionIndex++;
     if( questionIndex < questionCount )
     {
@@ -58,25 +48,56 @@ let confirmAnswer = function()
     }
     else
     {
-        let delta = Date.now() - beginTime; // milliseconds elapsed since start
-        let completionSeconds = Math.floor(delta / 1000);
-        document.getElementById("questionArea").style.display = "none";
-        let testResults = document.getElementById("testResults");
-        testResults.style.display = "";
-
-        let score = localStorage.getItem('score');
-        let time = localStorage.getItem('time');
-        let highScoreMessage = "You didn't beat your high score. ";
-        if( correctAnswers > score || correctAnswers >= score && completionSeconds < time )
-        {
-            localStorage.setItem('score', correctAnswers);
-            localStorage.setItem('time', completionSeconds);
-            highScoreMessage = "New high score! ";
-        }
-
-        testResults.innerHTML = highScoreMessage + "You got " + correctAnswers + " out of " + questionCount + " correct in " + completionSeconds + " seconds.";
-
+        finishGame();
     }
+}
+
+let evaluateAnswer = function()
+{
+    let id = document.getElementById("answer").value;
+    let interval = getInterval( id );
+    if( interval === answers[questionIndex])
+    {
+        correctAnswers++;
+        show("correctAnswer", "&nbsp");
+    }
+    else
+    {
+        show("correctAnswer", "Wrong, the correct answer was: " + answers[questionIndex] );
+    }
+}
+
+let finishGame = function()
+{
+    show("startButton");
+    hide("questionArea");
+    let highScoreMessage = "You didn't beat your high score. ";
+    let delta = Date.now() - beginTime; // milliseconds elapsed since start
+    let completionSeconds = Math.floor(delta / 1000);
+    if( saveHighScore( completionSeconds ) )
+    {
+        highScoreMessage = "New high score! ";
+    }
+
+    hide("correctAnswer")
+    show( "testResults", highScoreMessage +
+                         "You got " + correctAnswers +
+                         " out of " + questionCount +
+                         " correct in " + completionSeconds + " seconds." );
+}
+
+let saveHighScore = function( completionSeconds )
+{
+    let highScore = false;
+    let score = localStorage.getItem('score');
+    let time = localStorage.getItem('time');
+    if( correctAnswers > score || ( correctAnswers >= score && completionSeconds < time ) )
+    {
+        localStorage.setItem('score', correctAnswers);
+        localStorage.setItem('time', completionSeconds);
+        highScore = true;
+    }
+    return highScore;
 }
 
 let replayInterval = function()
@@ -88,6 +109,21 @@ let getRandomInterval = function()
 {
     let interval = getRandomInteger( 0, 4 );
     return getInterval( interval );
+}
+
+let show = function( id, value )
+{
+    let element = document.getElementById(id);
+    element.style.display = "";
+    if( value !== undefined )
+    {
+        element.innerHTML = value;
+    }
+}
+
+let hide = function( id )
+{
+    document.getElementById(id).style.display = "none";
 }
 
 let getInterval = function( id )
