@@ -14,8 +14,7 @@ let generateTest = function()
 {
     show("questionArea");
     hide("startButton");
-    show("correctAnswer", "&nbsp");
-    show("testResults", "");
+    show("message", "&nbsp");
     questions = [];
     answers = [];
     questionIndex = 0;
@@ -59,11 +58,11 @@ let evaluateAnswer = function()
     if( interval === answers[questionIndex])
     {
         correctAnswers++;
-        show("correctAnswer", "&nbsp");
+        show("message", "&nbsp");
     }
     else
     {
-        show("correctAnswer", "Wrong, the correct answer was: " + answers[questionIndex] );
+        show("message", "Wrong, the correct answer was: " + answers[questionIndex] );
     }
 }
 
@@ -79,8 +78,7 @@ let finishGame = function()
         highScoreMessage = "New high score! ";
     }
 
-    hide("correctAnswer")
-    show( "testResults", highScoreMessage +
+    show( "message", highScoreMessage +
                          "You got " + correctAnswers +
                          " out of " + questionCount +
                          " correct in " + completionSeconds + " seconds." );

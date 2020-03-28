@@ -16,6 +16,10 @@ body {
     text-align: center;
 }
 
+#message {
+    padding-top: 15px;
+}
+
 /* Buttons */
 .button {
   display: inline-block;
