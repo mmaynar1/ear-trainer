@@ -23,7 +23,7 @@ let generateTest = function()
     for( let question = 0; question < questionCount; question++ )
     {
         let interval = getRandomInterval();
-        questions[question] = interval + getRandomIndex();
+        questions[question] = interval.code + getRandomIndex();
         answers[question] = interval;
     }
 
@@ -55,14 +55,14 @@ let evaluateAnswer = function()
 {
     let id = document.getElementById("answer").value;
     let interval = getInterval( id );
-    if( interval === answers[questionIndex])
+    if( interval.code === answers[questionIndex].code)
     {
         correctAnswers++;
         show("message", "&nbsp");
     }
     else
     {
-        show("message", "Wrong, the correct answer was: " + answers[questionIndex] );
+        show("message", "Wrong, the correct answer was: " + answers[questionIndex].name );
     }
 }
 
@@ -105,7 +105,7 @@ let replayInterval = function()
 
 let getRandomInterval = function()
 {
-    let interval = getRandomInteger( 0, 4 );
+    let interval = getRandomInteger( 0, 5 );
     return getInterval( interval );
 }
 
@@ -127,31 +127,34 @@ let hide = function( id )
 let getInterval = function( id )
 {
     id = id + "";
-    let intervalName = "third";
+    let interval = { code: "third", name: "Major Third" }
     switch( id )
     {
       case "0":
-        intervalName = "third"
+        interval = { code: "third", name: "Major Third" };
         break;
       case "1":
-        intervalName = "fourth"
+        interval = { code: "minorthird", name: "Minor Third" }
         break;
       case "2":
-         intervalName = "fifth"
-         break;
+        interval = { code: "fourth", name: "Perfect Fourth" }
+        break;
       case "3":
-         intervalName = "octave"
-         break;
+        interval = { code: "fifth", name: "Perfect Fifth" }
+        break;
+      case "4":
+        interval = { code: "octave", name: "Octave" }
+        break;
       default:
         // Return whatever was set as the default
     }
 
-    return intervalName
+    return interval;
 }
 
 let getRandomIndex = function()
 {
-	return getRandomInteger( 0, 7 );
+	return getRandomInteger( 0, 9 );
 }
 
 let getRandomInteger = function( min, max )
