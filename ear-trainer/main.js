@@ -33,7 +33,10 @@ let generateTest = function()
 
 let nextQuestion = function()
 {
-    show("questionIndex", "Question " + ( questionIndex + 1 ) + " of " + questionCount );
+    show("questionIndex", "Question "
+                            + ( questionIndex + 1 ) +
+                             " of " +
+                             questionCount );
     playInterval( questions[questionIndex] );
 }
 
@@ -62,7 +65,8 @@ let evaluateAnswer = function()
     }
     else
     {
-        show("message", "Wrong, the correct answer was: " + answers[questionIndex].name );
+        show("message", "Wrong, the correct answer was: " +
+                            answers[questionIndex].name );
     }
 }
 
@@ -154,7 +158,7 @@ let getInterval = function( id )
 
 let getRandomIndex = function()
 {
-	return getRandomInteger( 0, 9 );
+	return getRandomInteger( 0, 10 );
 }
 
 let getRandomInteger = function( min, max )
